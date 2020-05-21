@@ -9,12 +9,18 @@ var ejs = require("ejs");
 
 // レンダリングエンジンの設定
 app.engine("ejs", ejs.renderFile);
+
+// 静的ファイルの読み込み
+app.use(express.static("public"));
+
 // ルーティングの設定
 app.get("/", (req, res) => {
+  var msg = "This is Express Page!" + "これはスタイルシートを利用した例です";
+
   // indexをレンダリングする
   res.render("index.ejs", {
     title: "INDEX",
-    content: "This page is index.ejs!!!",
+    content: msg,
   });
 });
 

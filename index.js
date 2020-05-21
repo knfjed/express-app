@@ -13,28 +13,30 @@ app.engine("ejs", ejs.renderFile);
 // 静的ファイルの読み込み
 app.use(express.static("public"));
 
+// bodyParserの利用
+var bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: false }));
+
 // ルーティングの設定
 app.get("/", (req, res) => {
-  var msg =
-    "This is Express Page!<br>" + "これはスタイルシートを利用した例です";
+  var msg = "This is Express Page!<br>" + "メッセージを書いて送信してください";
 
   // indexをレンダリングする
   res.render("index.ejs", {
     title: "INDEX",
     content: msg,
-    link: { href: "/other", text: "*別のページに移動" },
   });
 });
 
-// ＊別のページ
-app.get("/other", (req, res) => {
-  var msg = "This is Other Page!!!<br>" + "これは用意された別のページです";
+// POST送信
+app.post("/", (req, res) => {
+  var msg =
+    "This is Posted Page!<br>" +
+    "あなたは" +
+    req.body.message +
+    "と送信しました";
 
-  res.render("index.ejs", {
-    title: "OTHER",
-    content: msg,
-    link: { href: "/", text: "*トップに戻る" },
-  });
+  res.render("index.ejs", { title: "posted", content: msg });
 });
 
 // 待受の開始

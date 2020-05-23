@@ -17,14 +17,23 @@ app.use(express.static("public"));
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// data
+var data = {
+  Taro: "taro@yamada.com",
+  Hanako: "hanako@sato.com",
+  Sachiko: "sachiko@suzuki.com",
+  Ichiro: "ichiro@abe.com",
+};
+
 // ルーティングの設定
 app.get("/", (req, res) => {
-  var msg = "This is Express Page!<br>" + "メッセージを書いて送信してください";
+  var msg = "This is Express Page!<br>" + "*データを表示します";
 
   // indexをレンダリングする
   res.render("index.ejs", {
     title: "INDEX",
     content: msg,
+    data: data,
   });
 });
 
